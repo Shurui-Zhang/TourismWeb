@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.tedu.store.mapper.DianzanLogsMapper">
+		
+		<select id="checkDianzanLogs" parameterType="cn.tedu.store.bean.DianzanLogs" resultMap="nts">
+			select * from dianzanlogs where Lsid = #{Lsid} and Luid = #{Luid}
+		</select>
+		
+		<insert id="insertDianzanLogs" parameterType="cn.tedu.store.bean.DianzanLogs">
+			insert into dianzanlogs(
+				Lsid,Luid
+			)values(
+				#{Lsid},#{Luid}
+			)
+		</insert>
+		
+	<resultMap type="cn.tedu.store.bean.DianzanLogs" id="nts">
+		<result column="Lid" jdbcType="INTEGER" property="Lid" />
+    	<result column="Lsid" jdbcType="INTEGER" property="Lsid" />
+    	<result column="Luid" jdbcType="INTEGER" property="Luid" />
+    	
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

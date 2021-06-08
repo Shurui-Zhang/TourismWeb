@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.tedu.store.mapper.NewsMapper">
+		<!-- 查找所有新闻关联查询 -->
+		<select id="selectAllNews" resultMap="nts">
+			select n.*,nt.Tname from news as n 
+			left join newstypes as nt on nt.Tid = n.Ntypeid
+			order by n.Nid desc
+		</select>
+		<!-- 查找前六个新闻关联查询 -->
+		<select id="selectAllNews6" resultMap="nts">
+			select n.*,nt.Tname from news as n 
+			left join newstypes as nt on nt.Tid = n.Ntypeid
+			order by n.Nid desc
+			limit 0,6
+		</select>
+		
+		<select id="selectNewsCount" resultMap="nts">
+			select * from news
+		</select>
+	
+		<select id="selectNewsById" parameterType="Integer" resultMap="nts">
+			select n.*,nt.Tname from news as n 
+			left join newstypes as nt on nt.Tid = n.Ntypeid 
+			where n.Nid = #{Nid}
+		</select>
+	
+		<select id="selectNewsByname" parameterType="String" resultMap="nts">
+			select * from news where Ntitle=#{Ntitle}
+		</select>
+		
+		<select id="checkNewsByname" parameterType="String" resultMap="nts">
+			select * from news where Ntitle=#{Ntitle}
+		</select>
+		
+		<delete id="deleteNewsById" parameterType="Integer">
+			delete from news where Nid = #{0}
+		</delete>
+		
+		<insert id="insertNews" parameterType="cn.tedu.store.bean.News">
+			insert into news(
+				Ntitle,Nimg,Ncont,Ntypeid,Ntime
+			)values(
+				#{Ntitle},#{Nimg},#{Ncont},#{Ntypeid},#{Ntime}
+			)
+		</insert>
+		
+		<update id="updateNews" parameterType="cn.tedu.store.bean.News">
+			update news
+			<set>
+				Ntitle=#{Ntitle},
+				Nimg=#{Nimg},
+				Ncont=#{Ncont},
+				Ntypeid=#{Ntypeid}
+			</set>
+			where
+				Nid=#{Nid}
+		</update>
+		
+		
+	<resultMap type="cn.tedu.store.bean.News" id="nts">
+		<result column="Nid" jdbcType="INTEGER" property="Nid" />
+    	<result column="Ntitle" jdbcType="VARCHAR" property="Ntitle" />
+    	<result column="Nimg" jdbcType="VARCHAR" property="Nimg" />
+    	<result column="Ncont" jdbcType="VARCHAR" property="Ncont" />
+    	<result column="Ntypeid" jdbcType="INTEGER" property="Ntypeid" />
+    	<result column="Ntime" jdbcType="TIMESTAMP" property="Ntime" /> 
+    	
+    	<result column="Tname" jdbcType="VARCHAR" property="newtype" />
+    	
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

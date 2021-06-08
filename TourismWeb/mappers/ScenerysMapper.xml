@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.tedu.store.mapper.ScenerysMapper">
+		<!-- 查找所有景点 -->
+		<select id="selectAllScenerys" resultMap="nts">
+			select * from scenerys 
+			order by Snums desc
+		</select>
+		<!-- 查找前六个景点 -->
+		<select id="selectAllScenerys6" resultMap="nts">
+			select * from scenerys 
+			order by Snums desc
+			limit 0,6
+		</select>
+		
+		<select id="selectScenerysCount" resultMap="nts">
+			select * from scenerys
+		</select>
+	
+		<select id="selectScenerysById" parameterType="Integer" resultMap="nts">
+			select * from scenerys where Sid = #{Sid}
+		</select>
+	
+		<select id="selectScenerysByname" parameterType="String" resultMap="nts">
+			select * from scenerys where Stitle=#{Stitle}
+		</select>
+		
+		<select id="selectScenerysListsByname" parameterType="String" resultMap="nts">
+			select * from scenerys where Stitle like #{Stitle} or Sattr like #{Sattr}
+			order by Snums desc
+		</select>
+		
+		<select id="checkScenerysByname" parameterType="String" resultMap="nts">
+			select * from scenerys where Stitle=#{Stitle}
+		</select>
+		
+		<delete id="deleteScenerysById" parameterType="Integer">
+			delete from scenerys where Sid = #{0}
+		</delete>
+		
+		<insert id="insertScenerys" parameterType="cn.tedu.store.bean.Scenerys">
+			insert into scenerys(
+				Stitle,Scont,Simg,Sattr,Surl,Stime
+			)values(
+				#{Stitle},#{Scont},#{Simg},#{Sattr},#{Surl},#{Stime}
+			)
+		</insert>
+		
+		<update id="updateScenerys" parameterType="cn.tedu.store.bean.Scenerys">
+			update scenerys
+			<set>
+				Stitle=#{Stitle},
+				Scont=#{Scont},
+				Simg=#{Simg},
+				Sattr=#{Sattr},
+				Surl=#{Surl}
+			</set>
+			where
+				Sid=#{Sid}
+		</update>
+		
+		<update id="updateScenerysDianzanNums" parameterType="cn.tedu.store.bean.Scenerys">
+			update scenerys
+			<set>
+				Snums=#{Snums}
+			</set>
+			where
+				Sid=#{Sid}
+		</update>
+		
+		
+	<resultMap type="cn.tedu.store.bean.Scenerys" id="nts">
+		<result column="Sid" jdbcType="INTEGER" property="Sid" />
+    	<result column="Stitle" jdbcType="VARCHAR" property="Stitle" />
+    	<result column="Scont" jdbcType="VARCHAR" property="Scont" />
+    	<result column="Simg" jdbcType="VARCHAR" property="Simg" />
+    	<result column="Sattr" jdbcType="VARCHAR" property="Sattr" />
+    	<result column="Surl" jdbcType="VARCHAR" property="Surl" />
+    	<result column="Stime" jdbcType="TIMESTAMP" property="Stime" /> 
+    	<result column="Snums" jdbcType="INTEGER" property="Snums" />
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

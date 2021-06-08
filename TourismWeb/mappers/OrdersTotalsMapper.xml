@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.tedu.store.mapper.OrdersTotalsMapper">
+	
+		<select id="selectAllOrdersTotals" parameterType="cn.tedu.store.bean.OrdersTotals" resultMap="nts">
+			select * from orderstotals where Otsid=#{Otsid} and Ottime=#{Ottime}
+		</select>
+		
+		<insert id="insertOrdersTotals" parameterType="cn.tedu.store.bean.OrdersTotals">
+			insert into orderstotals(
+				Otsid,Otnums,Ottime
+			)values(
+				#{Otsid},#{Otnums},#{Ottime}
+			)
+		</insert>
+		
+		<update id="updateOrdersTotals" parameterType="cn.tedu.store.bean.OrdersTotals">
+			update orderstotals
+			<set>
+				Otnums=#{Otnums}
+			</set>
+			where
+				Otsid=#{Otsid}
+		</update>
+		
+		
+	<resultMap type="cn.tedu.store.bean.OrdersTotals" id="nts">
+		<result column="Otid" jdbcType="INTEGER" property="Otid" />
+    	<result column="Otsid" jdbcType="INTEGER" property="Otsid" />
+    	<result column="Otnums" jdbcType="INTEGER" property="Otnums" />
+    	<result column="Ottime" jdbcType="TIMESTAMP" property="Ottime" /> 
+    	
+    	
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

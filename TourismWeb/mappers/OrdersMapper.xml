@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.tedu.store.mapper.OrdersMapper">
+	
+		<select id="selectAllOrders" resultMap="nts">
+			select o.*,s.Stitle,s.Simg,u.username from orders as o 
+			left join scenerys as s on s.Sid = o.Osid
+			left join users as u on u.id = o.Ouid
+			order by o.Oid desc
+		</select>
+	
+		<select id="selectOrdersById" parameterType="Integer" resultMap="nts">
+			select o.*,s.Stitle,s.Simg,u.username from orders as o 
+			left join scenerys as s on s.Sid = o.Osid
+			left join users as u on u.id = o.Ouid
+			where o.Ouid = #{Ouid}
+			order by o.Oid desc
+		</select>
+		
+		
+		
+		<delete id="deleteOrdersById" parameterType="Integer">
+			delete from orders where Oid = #{0}
+		</delete>
+		
+		<insert id="insertOrders" parameterType="cn.tedu.store.bean.Orders">
+			insert into orders(
+				Osid,Ouid,Ocreatetime,Onums,Oordertime
+			)values(
+				#{Osid},#{Ouid},#{Ocreatetime},#{Onums},#{Oordertime}
+			)
+		</insert>
+		
+		<update id="updateOrders" parameterType="cn.tedu.store.bean.Orders">
+			update orders
+			<set>
+				Osid=#{Osid},
+				Ouid=#{Ouid},
+				Onums=#{Onums},
+				Oordertime=#{Oordertime}
+			</set>
+			where
+				Oid=#{Oid}
+		</update>
+		
+		
+	<resultMap type="cn.tedu.store.bean.Orders" id="nts">
+		<result column="Oid" jdbcType="INTEGER" property="Oid" />
+    	<result column="Osid" jdbcType="INTEGER" property="Osid" />
+    	<result column="Ouid" jdbcType="INTEGER" property="Ouid" />
+    	<result column="Onums" jdbcType="INTEGER" property="Onums" />
+    	<result column="Ocreatetime" jdbcType="TIMESTAMP" property="Ocreatetime" /> 
+    	<result column="Oordertime" jdbcType="TIMESTAMP" property="Oordertime" /> 
+    	
+    	<result column="Stitle" jdbcType="VARCHAR" property="scenerystitle" />
+    	<result column="Simg" jdbcType="VARCHAR" property="scenerysimg" />
+    	<result column="username" jdbcType="VARCHAR" property="usersname" />
+    	
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

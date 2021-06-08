@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+	<mapper namespace="cn.tedu.store.mapper.UserMapper">
+	
+		<select id="login" parameterType="cn.tedu.store.bean.User" resultMap="user">
+			select
+				*
+			from
+				users
+			where phone=#{phone} and password=#{password} 
+		</select>
+		
+		<select id="selectAllUsers"  resultMap="user">
+			select
+				*
+			from
+				users 
+		</select>
+	
+	
+		<insert id="insertUser" parameterType="cn.tedu.store.bean.User">
+			insert into users(
+				username,password,email,phone,createdTime
+			)values(
+				#{username},#{password},#{email},#{phone},#{createdTime}
+			)
+		</insert>
+	
+		<select id="selectByUsername" parameterType="String" resultMap="user">
+			select * from users where username=#{username}
+		</select>
+		
+		<select id="selectByPhone" parameterType="String" resultMap="user">
+			select
+				*
+			from
+				users
+			where
+				phone=#{phone}
+		</select>
+
+		<update id="updateUser" parameterType="cn.tedu.store.bean.User">
+			update users
+			<set>
+				<if test="password != null">
+					password=#{password},
+				</if>
+				<if test="username != null">
+					username=#{username},
+				</if>
+				<if test="gender != null">
+					gender=#{gender},
+				</if>
+				<if test="phone != null">
+					phone=#{phone},
+				</if>
+				<if test="email != null">
+					email=#{email},
+				</if>
+				<if test="image != null">
+					image=#{image}
+				</if>
+				
+			</set>
+			where
+				id=#{id}
+		</update>
+		
+		<delete id="deleteUsersById" parameterType="Integer">
+			delete from users where id = #{0}
+		</delete>
+		
+		<select id="selectUserById" parameterType="Integer" resultMap="user">
+			select
+				*
+			from
+				users
+			where
+				id=#{id}
+		</select>
+		
+	<resultMap type="cn.tedu.store.bean.User" id="user">
+		<result column="id" jdbcType="INTEGER" property="id" />
+    	<result column="username" jdbcType="VARCHAR" property="username" />
+    	<result column="createdTime" jdbcType="TIMESTAMP" property="createdTime" /> 
+    	<result column="password" jdbcType="VARCHAR" property="password" />
+    	<result column="email" jdbcType="VARCHAR" property="email" />
+    	<result column="phone" jdbcType="VARCHAR" property="phone" />
+    	<result column="image" jdbcType="VARCHAR" property="image" />
+    	<result column="gender" jdbcType="VARCHAR" property="gender" />
+    	
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

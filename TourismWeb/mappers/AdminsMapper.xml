@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+	<mapper namespace="cn.tedu.store.mapper.AdminsMapper">
+	
+		<select id="login" parameterType="cn.tedu.store.bean.Admins" resultMap="admins">
+			select
+				*
+			from
+				admins
+			where Atel=#{Atel} and Apwd=#{Apwd} 
+		</select>
+		
+		<select id="selectAllAdminss"  resultMap="admins">
+			select
+				*
+			from
+				admins 
+		</select>
+	
+		<insert id="insertAdmins" parameterType="cn.tedu.store.bean.Admins">
+			insert into admins(
+				Aname,Apwd,Atel,Aimg
+			)values(
+				#{Aname},#{Apwd},#{Atel},#{Aimg}
+			)
+		</insert>
+	
+		<select id="selectByAdminsname" parameterType="String" resultMap="admins">
+			select * from admins where Aname=#{Aname}
+		</select>
+		
+		<select id="selectAdminsByPhone" parameterType="String" resultMap="admins">
+			select
+				*
+			from
+				admins
+			where
+				Atel=#{Atel}
+		</select>
+
+		<update id="updateAdmins" parameterType="cn.tedu.store.bean.Admins">
+			update admins
+			<set>
+				<if test="Aname != null">
+					Aname=#{Aname},
+				</if>
+				<if test="Apwd != null">
+					Apwd=#{Apwd},
+				</if>
+				<if test="Atel != null">
+					Atel=#{Atel},
+				</if>
+				<if test="Aimg != null">
+					Aimg=#{Aimg}
+				</if>
+				
+			</set>
+			where
+				Aid=#{Aid}
+		</update>
+		
+		<delete id="deleteAdminssById" parameterType="Integer">
+			delete from admins where Aid = #{0}
+		</delete>
+		
+		<select id="selectAdminsById" parameterType="Integer" resultMap="admins">
+			select
+				*
+			from
+				admins
+			where
+				Aid=#{Aid}
+		</select>
+		
+	<resultMap type="cn.tedu.store.bean.Admins" id="admins">
+		<result column="Aid" jdbcType="INTEGER" property="Aid" />
+    	<result column="Aname" jdbcType="VARCHAR" property="Aname" />
+    	<result column="Apwd" jdbcType="VARCHAR" property="Apwd" />
+    	<result column="Atel" jdbcType="VARCHAR" property="Atel" />
+    	<result column="Aimg" jdbcType="VARCHAR" property="Aimg" />
+    	
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

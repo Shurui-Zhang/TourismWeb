@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	<mapper namespace="cn.tedu.store.mapper.NoticesMapper">
+		<!-- 查询全部通知 -->
+		<select id="selectAllNotices" resultMap="nts">
+			select * from notices 
+			order by Nid desc
+		</select>
+		
+		<select id="selectNoticesCount" resultMap="nts">
+			select * from notices
+		</select>
+	
+		<select id="selectNoticesById" parameterType="Integer" resultMap="nts">
+			select * from notices where Nid = #{Nid}
+		</select>
+	
+		<select id="selectNoticesByname" parameterType="String" resultMap="nts">
+			select * from notices where Ntitle=#{Ntitle}
+		</select>
+		
+		<select id="checkNoticesByname" parameterType="String" resultMap="nts">
+			select * from notices where Ntitle=#{Ntitle}
+		</select>
+		
+		<delete id="deleteNoticesById" parameterType="Integer">
+			delete from notices where Nid = #{0}
+		</delete>
+		
+		<insert id="insertNotices" parameterType="cn.tedu.store.bean.Notices">
+			insert into notices(
+				Ntitle,Ntime,Ncont
+			)values(
+				#{Ntitle},#{Ntime},#{Ncont}
+			)
+		</insert>
+		
+		<update id="updateNotices" parameterType="cn.tedu.store.bean.Notices">
+			update notices
+			<set>
+				Ntitle=#{Ntitle},
+				Ncont=#{Ncont}
+			</set>
+			where
+				Nid=#{Nid}
+		</update>
+		
+		
+	<resultMap type="cn.tedu.store.bean.Notices" id="nts">
+		<result column="Nid" jdbcType="INTEGER" property="Nid" />
+    	<result column="Ntitle" jdbcType="VARCHAR" property="Ntitle" />
+    	<result column="Ntime" jdbcType="TIMESTAMP" property="Ntime" /> 
+    	<result column="Ncont" jdbcType="VARCHAR" property="Ncont" />
+	</resultMap>
+
+	</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
